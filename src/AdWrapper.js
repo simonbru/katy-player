@@ -26,17 +26,17 @@ export default class AdWrapper extends Component {
     }
 
     render() {
-        let {skipTime, videoId, onCanPlay, ...otherProps} = this.props;
+        let {skipTime, ...videoProps} = this.props;
         const {timeLeft, advertId, adSkipped} = this.state;
-
-        if (!adSkipped) {
-            videoId = advertId;
-            onCanPlay = this.onCanPlay.bind(this);
-        }
-        const playerProps = {key: videoId, videoId, onCanPlay, ...otherProps};
-
         let skipButton = null;
+
         if (!adSkipped) {
+            Object.assign(videoProps, {
+                videoId: advertId,
+                onCanPlay: this.onCanPlay.bind(this),
+                key: advertId
+            });
+
             skipButton = <SkipButton
                 timeLeft={timeLeft}
                 onSkip={this.onSkip.bind(this)}
@@ -44,7 +44,7 @@ export default class AdWrapper extends Component {
         }
 
         return <div className="AdWrapper">
-            <Player {...playerProps} />
+            <Player {...videoProps} />
             {skipButton}
         </div>;
     }
