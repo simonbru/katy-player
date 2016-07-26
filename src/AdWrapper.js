@@ -49,6 +49,10 @@ export default class AdWrapper extends Component {
         </div>;
     }
 
+    componentWillUnmount() {
+        this._isUnmounted = true;
+    }
+
     onSkip() {
         this.setState({adSkipped: true});
     }
@@ -61,7 +65,7 @@ export default class AdWrapper extends Component {
             const timeLeft = $this.state.timeLeft - 1;
             $this.setState({timeLeft});
 
-            if (timeLeft > 0) {
+            if (timeLeft > 0 && !$this._isUnmounted) {
                 setTimeout(decrement, 1000);
             }
         };
