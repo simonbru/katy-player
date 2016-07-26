@@ -7,23 +7,14 @@ export default class Player extends Component {
         videoHotlink: null
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.videoId !== this.props.videoId)
-            this.setState({videoHotlink: null});
-    }
-
-    componentDidUpdate(prevProps) {
+    componentDidMount() {
         const {videoId} = this.props;
-        const {videoHotlink} = this.state;
 
-        if (!videoHotlink) {
-            getVideoInfo(videoId)
-            .then(data => this.setState({
-                videoHotlink: data.url
-            }));
-        }
+        getVideoInfo(videoId)
+        .then(data => this.setState({
+            videoHotlink: data.url
+        }));
     }
-    componentDidMount = this.componentDidUpdate
 
     render() {
         const {videoId} = this.props;

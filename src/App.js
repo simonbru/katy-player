@@ -4,6 +4,7 @@ import '!style!css!bootstrap/dist/css/bootstrap.css'
 import React, { Component } from 'react';
 import {Col, Grid, Row} from 'react-bootstrap'
 
+import AdWrapper from './AdWrapper';
 import HeaderBar from './HeaderBar';
 import Player from './Player';
 import Playlist from './Playlist';
@@ -13,11 +14,13 @@ import './App.css';
 class App extends Component {
 
   state = {
-    videoPlaying: null
+    videoPlaying: null,
+    youtubeRED: false,
   }
 
   render() {
-    const {videoPlaying} = this.state;
+    const {videoPlaying, youtubeRED} = this.state;
+    const VideoPlayer = youtubeRED ? Player : AdWrapper;
 
     return (
       <div className="App">
@@ -27,10 +30,14 @@ class App extends Component {
           </Row>
           <Row>
             <Col sm={9} smPush={3} className="App-player">
-              {videoPlaying && <Player videoId={videoPlaying}/>}
+              {videoPlaying && <VideoPlayer key={videoPlaying} videoId={videoPlaying}/>}
+              {/* Note: define 'key' attribute to force-remount the component */}
             </Col>
             <Col sm={3} smPull={9} className="App-playlist">
-              <Playlist videoPlaying={videoPlaying} onSelect={this.onVideoSelect.bind(this)}/>
+              <Playlist
+                videoPlaying={videoPlaying}
+                onSelect={this.onVideoSelect.bind(this)}
+                />
             </Col>
           </Row>
         </Grid>

@@ -16,16 +16,7 @@ export default class AdWrapper extends Component {
         advertId: 'QmaNSESs_bw',
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.videoId !== this.props.videoId)
-            this.setState({
-                timeLeft: this.props.skipTime,
-                adSkipped: false
-            });
-    }
-
     componentDidMount() {
-        this.forceUpdate();
         const $this = this;
 
         function decrement() {
@@ -45,7 +36,7 @@ export default class AdWrapper extends Component {
 
         if (!adSkipped)
             videoId = advertId;
-        const playerProps = {videoId, ...otherProps};
+        const playerProps = {videoId, key: videoId, ...otherProps};
 
         let skipButton = null;
         if (!adSkipped) {
