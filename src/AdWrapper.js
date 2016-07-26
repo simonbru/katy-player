@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 // import {ResponsiveEmbed} from 'react-bootstrap'
 
+import './AdWrapper.css'
 import Player from './Player'
 
 
@@ -46,7 +47,7 @@ export default class AdWrapper extends Component {
                 />;
         }
 
-        return <div>
+        return <div className="AdWrapper">
             <Player {...playerProps} />
             {skipButton}
         </div>;
@@ -59,8 +60,19 @@ export default class AdWrapper extends Component {
 
 
 function SkipButton({timeLeft, onSkip}) {
-    if (timeLeft > 0)
-        return <p>{timeLeft}</p>;
-    else
-        return <a href="#" onClick={onSkip}>Skip</a>;
+    function handleClick(evt) {
+        onSkip();
+        evt.preventDefault();
+    }
+
+    const message = `You can skip to video in ${timeLeft}`;
+    return <div className="AdWrapper-SkipButton">
+        {timeLeft > 0
+            ? <div className="AdWrapper-waitmsg">{message}</div>
+            : <a href="#" onClick={handleClick} className="AdWrapper-skipmsg">
+                Skip Ad
+                <span className="glyphicon glyphicon-step-forward"/>
+              </a>
+        }
+    </div>
 }
