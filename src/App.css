@@ -1,6 +1,23 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
+
+/* @screen-sm-min = 768px */
+@media (min-width: 768px) {
+  .App-headerbar {
+    height: 10vh;
+  }
+
+  .App-playlist, .App-player {
+    height: 90vh;
+    overflow-x: hidden;
+  }
+
+  .App-player {
+    overflow-y: hidden;
+  }
+}
+
 
 .App-logo {
   animation: spin infinite 20s linear;

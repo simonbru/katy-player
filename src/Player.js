@@ -37,7 +37,7 @@ export default class Player extends Component {
 
         return <div>
             <p>Playing video: {videoId}</p>
-            {videoHotlink && video || 'Loading...'}
+            {videoHotlink ? video : 'Loading...'}
         </div>;
     }
 }
