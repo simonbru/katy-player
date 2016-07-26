@@ -26,7 +26,10 @@ class App extends Component {
       <div className="App">
         <Grid fluid>
           <Row className="App-headerbar">
-            <HeaderBar/>
+            <HeaderBar
+              youtubeRED={youtubeRED}
+              onREDTrigger={this.onREDTrigger.bind(this)}
+              />
           </Row>
           <Row>
             <Col sm={9} smPush={3} className="App-player">
@@ -57,6 +60,13 @@ class App extends Component {
       videoPlaying: videoId
     });
   }
+
+  onREDTrigger() {
+    this.setState({
+      youtubeRED: !this.state.youtubeRED
+    });
+  }
 }
+
 
 export default App;
