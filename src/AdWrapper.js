@@ -5,6 +5,14 @@ import './AdWrapper.css'
 import Player from './Player'
 
 
+const adslist = [
+    'SzVt6AmoJTA',  // TechSNAP
+    't_w5ORP2Ods',  // LAS
+    '-_q9fhKttRo',  // BSD Now
+    'bGfdZYssBtg',  // Coder Radio
+];
+
+
 export default class AdWrapper extends Component {
 
     static defaultProps = {
@@ -14,7 +22,7 @@ export default class AdWrapper extends Component {
     state = {
         timeLeft: this.props.skipTime,
         adSkipped: false,
-        advertId: 'QmaNSESs_bw',
+        advertId: randomPick(adslist),
     }
 
     componentDidMount() {
@@ -75,4 +83,10 @@ function SkipButton({timeLeft, onSkip}) {
               </a>
         }
     </div>
+}
+
+
+function randomPick(array) {
+    const index = Math.floor(Math.random() * array.length);
+    return array[index];
 }
