@@ -2,7 +2,7 @@ import '!style!css!bootstrap/dist/css/bootstrap.css'
 // No need to import JS bootstrap files since we use bootstrap-react
 
 import React, { Component } from 'react';
-import {Grid, Row, Col, Button} from 'react-bootstrap'
+import {Col, Grid, Row} from 'react-bootstrap'
 
 import HeaderBar from './HeaderBar';
 import Player from './Player';
@@ -11,7 +11,14 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    videoPlaying: null
+  }
+
   render() {
+    const {videoPlaying} = this.state;
+
     return (
       <div className="App">
         <Grid>
@@ -20,10 +27,10 @@ class App extends Component {
           </Row>
           <Row>
             <Col md={3}>
-              <Playlist/>
+              <Playlist videoPlaying={videoPlaying} onSelect={this.onVideoSelect.bind(this)}/>
             </Col>
             <Col md={9}>
-              <Player/>
+              {videoPlaying && <Player videoId={videoPlaying}/>}
             </Col>
           </Row>
         </Grid>
@@ -36,6 +43,12 @@ class App extends Component {
         </p>
       </div>
     );
+  }
+
+  onVideoSelect(videoId) {
+    this.setState({
+      videoPlaying: videoId
+    });
   }
 }
 
