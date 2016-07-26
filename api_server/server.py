@@ -2,7 +2,7 @@
 
 import urllib
 
-from bottle import Bottle, request
+from bottle import Bottle, request, response
 from youtube_dl import YoutubeDL
 
 
@@ -15,6 +15,8 @@ def v_dash_aac128(url):
     format = request.forms.get('format', 'best')
     ytdl = YoutubeDL({'format': format})
     info = ytdl.extract_info(url, download=False)
+
+    response.set_header('Access-Control-Allow-Origin', '*')
     return info
 
 
