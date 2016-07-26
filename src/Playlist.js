@@ -1,22 +1,29 @@
 import React, {Component} from 'react'
-import {Col, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Col, Image, ListGroup, ListGroupItem} from 'react-bootstrap'
+
 
 const playlist = [
-    ['Roar', 'https://www.youtube.com/watch?v=CevxZvSJLk8'],
-    ['Dark Horse', 'https://www.youtube.com/watch?v=0KSOMA3QBU0'],
-    ['This Is How We Do', 'https://www.youtube.com/watch?v=7RMQksXpQSk'],
+    ['Roar', 'CevxZvSJLk8'],
+    ['Dark Horse', '0KSOMA3QBU0'],
+    ['This Is How We Do', '7RMQksXpQSk'],
 ];
+
 
 export default class Playlist extends Component {
     render() {
         return <ListGroup>
-            {playlist.map( ([title, url]) => <VideoEntry title={title} url={url}/> )}
+            {playlist.map( ([title, videoId]) => <VideoEntry title={title} videoId={videoId} /> )}
         </ListGroup>;
     }
 }
 
-function VideoEntry({title, url, isSelected}) {
+
+function VideoEntry({videoId, title, isSelected}) {
+    const url = `https://www.youtube.com/watch?v=${videoId}`;
+    const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+
     return <ListGroupItem href={url} active={isSelected}>
+        <Image src={thumbnail} responsive />
         {title}
     </ListGroupItem>;
 }
