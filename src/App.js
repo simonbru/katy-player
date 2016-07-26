@@ -1,3 +1,6 @@
+import '!style!css!bootstrap/dist/css/bootstrap.css'
+// No need to import JS bootstrap files since we use bootstrap-react
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
