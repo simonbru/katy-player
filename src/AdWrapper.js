@@ -25,27 +25,15 @@ export default class AdWrapper extends Component {
         advertId: randomPick(adslist),
     }
 
-    componentDidMount() {
-        const $this = this;
-
-        function decrement() {
-            const timeLeft = $this.state.timeLeft - 1;
-            $this.setState({timeLeft});
-
-            if (timeLeft > 0) {
-                setTimeout(decrement, 1000);
-            }
-        };
-        setTimeout(decrement, 1000);
-    }
-
     render() {
-        let {skipTime, videoId, ...otherProps} = this.props;
+        let {skipTime, videoId, onCanPlay, ...otherProps} = this.props;
         const {timeLeft, advertId, adSkipped} = this.state;
 
-        if (!adSkipped)
+        if (!adSkipped) {
             videoId = advertId;
-        const playerProps = {videoId, key: videoId, ...otherProps};
+            onCanPlay = this.onCanPlay.bind(this);
+        }
+        const playerProps = {key: videoId, videoId, onCanPlay, ...otherProps};
 
         let skipButton = null;
         if (!adSkipped) {
@@ -63,6 +51,21 @@ export default class AdWrapper extends Component {
 
     onSkip() {
         this.setState({adSkipped: true});
+    }
+
+    onCanPlay(evt) {
+        // Start decrementing skip-time counter
+        const $this = this;
+
+        function decrement() {
+            const timeLeft = $this.state.timeLeft - 1;
+            $this.setState({timeLeft});
+
+            if (timeLeft > 0) {
+                setTimeout(decrement, 1000);
+            }
+        };
+        setTimeout(decrement, 1000);
     }
 }
 
