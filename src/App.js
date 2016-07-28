@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import '!style!css!bootstrap/dist/css/bootstrap.css'
 // No need to import JS bootstrap files since we use bootstrap-react
 
