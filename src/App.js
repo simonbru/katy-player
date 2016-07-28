@@ -7,6 +7,7 @@ import {Col, Grid, Row} from 'react-bootstrap'
 
 import AdWrapper from './AdWrapper';
 import HeaderBar from './HeaderBar';
+import LoginModal from './LoginModal';
 import Player from './Player';
 import Playlist from './Playlist';
 // import logo from './logo.svg';
@@ -17,10 +18,11 @@ class App extends Component {
   state = {
     videoPlaying: null,
     youtubeRED: false,
+    showLoginModal: false
   }
 
   render() {
-    const {videoPlaying, youtubeRED} = this.state;
+    const {showLoginModal, videoPlaying, youtubeRED} = this.state;
     const VideoPlayer = youtubeRED ? Player : AdWrapper;
 
     return (
@@ -45,6 +47,11 @@ class App extends Component {
             </Col>
           </Row>
         </Grid>
+        <LoginModal
+          active={showLoginModal}
+          onClose={this.onLoginModalClose.bind(this)}
+          onSuccess={this.onLoginSuccess.bind(this)}
+          />
         {/*<div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
@@ -57,15 +64,23 @@ class App extends Component {
   }
 
   onVideoSelect(videoId) {
-    this.setState({
-      videoPlaying: videoId
-    });
+    this.setState({videoPlaying: videoId});
   }
 
   onREDTrigger() {
-    this.setState({
-      youtubeRED: !this.state.youtubeRED
-    });
+    const update = this.state.youtubeRED
+      ? {youtubeRED: false}
+      : {showLoginModal: true};
+
+    this.setState(update);
+  }
+
+  onLoginModalClose() {
+    this.setState({showLoginModal: false});
+  }
+
+  onLoginSuccess() {
+    this.setState({youtubeRED: true});
   }
 }
 
