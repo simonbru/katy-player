@@ -12,6 +12,7 @@ import Player from './Player';
 import Playlist from './Playlist';
 import videos from '../data/playlist.json'
 import questions from '../data/questions.json'
+import {randomPick} from './utils'
 
 import './App.css';
 
@@ -51,7 +52,12 @@ class App extends Component {
           </Row>
           <Row>
             <Col sm={9} smPush={3} className="App-player">
-              {videoPlaying && <VideoPlayer key={videoPlaying} videoId={videoPlaying}/>}
+              {videoPlaying && <VideoPlayer
+                  key={videoPlaying}
+                  videoId={videoPlaying}
+                  loop={repeat}
+                  onEnded={this.onVideoEnded.bind(this)}
+                  />}
               {/* Note: define 'key' attribute to force-remount the component */}
             </Col>
             <Col sm={3} smPull={9} className="App-playlist">
@@ -75,6 +81,29 @@ class App extends Component {
 
   onVideoSelect(videoId) {
     this.setState({videoPlaying: videoId});
+  }
+
+  onVideoEnded() {
+    const {repeat, shuffle, videoPlaying} = this.state;
+    if (repeat) {
+      // We already set the loop attribute on video player
+      return;
+    } else if (shuffle) {
+      let nextVid = videoPlaying;
+      while (nextVid === videoPlaying)
+        nextVid = randomPick(videos)[1];
+
+      this.setState({
+        videoPlaying: nextVid
+      });
+    } else {
+      // Play next video in the playlist
+      const oldIndex = videos.findIndex( ([, id]) => id === videoPlaying );
+      const [, nextVid] = videos[(oldIndex + 1) % videos.length];
+      this.setState({
+        videoPlaying: nextVid
+      });
+    }
   }
 
   onREDTrigger() {

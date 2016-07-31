@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 // import {ResponsiveEmbed} from 'react-bootstrap'
 
-import './AdWrapper.css'
 import Player from './Player'
+import {randomPick} from './utils'
 
+import './AdWrapper.css'
 
 const adslist = [
     'SzVt6AmoJTA',  // TechSNAP
@@ -26,6 +27,7 @@ export default class AdWrapper extends Component {
     }
 
     render() {
+        // eslint-disable-next-line
         let {skipTime, ...videoProps} = this.props;
         const {timeLeft, advertId, adSkipped} = this.state;
         let skipButton = null;
@@ -91,10 +93,4 @@ function SkipButton({timeLeft, onSkip}) {
               </a>
         }
     </div>
-}
-
-
-function randomPick(array) {
-    const index = Math.floor(Math.random() * array.length);
-    return array[index];
 }
