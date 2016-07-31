@@ -1,21 +1,6 @@
 import React, {Component} from 'react'
 import {Button, ControlLabel, FormGroup, Modal, Radio} from 'react-bootstrap'
 
-const questions = [
-    {
-        text: "Do you own a Youtube RED account?",
-        choices: ['Yes', 'No', 'Maybe?'],
-        answer: 0,
-    }, {
-        text: "Did you answer honestly to the previous question?",
-        choices: ['Of course', 'Actually...'],
-        answer: 0,
-    }, {
-        text: "Isn't there any chance that you haven't been feeling dishonest lately?",
-        choices: ['Sure', 'Hell no!', "I'm not sure"],
-        answer: 2
-    },
-];
 
 export default class LoginModal extends Component {
     state = {
@@ -30,7 +15,7 @@ export default class LoginModal extends Component {
     }
 
     render() {
-        const {active, onClose, onSuccess} = this.props;
+        const {questions, active, onClose, onSuccess} = this.props;
         const {userChoices} = this.state;
 
         const questionsElems = questions.map(

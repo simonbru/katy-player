@@ -10,8 +10,11 @@ import HeaderBar from './HeaderBar';
 import LoginModal from './LoginModal';
 import Player from './Player';
 import Playlist from './Playlist';
-// import logo from './logo.svg';
+import videos from '../data/playlist.json'
+import questions from '../data/questions.json'
+
 import './App.css';
+
 
 class App extends Component {
 
@@ -41,6 +44,7 @@ class App extends Component {
             </Col>
             <Col sm={3} smPull={9} className="App-playlist">
               <Playlist
+                playlist={videos}
                 videoPlaying={videoPlaying}
                 onSelect={this.onVideoSelect.bind(this)}
                 />
@@ -48,17 +52,11 @@ class App extends Component {
           </Row>
         </Grid>
         <LoginModal
+          questions={questions}
           active={showLoginModal}
           onClose={this.onLoginModalClose.bind(this)}
           onSuccess={this.onLoginSuccess.bind(this)}
           />
-        {/*<div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>*/}
       </div>
     );
   }

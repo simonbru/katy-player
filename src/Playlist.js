@@ -2,19 +2,9 @@ import React, {Component} from 'react'
 import {Image, ListGroup, ListGroupItem} from 'react-bootstrap'
 
 
-const playlist = [
-    ['Roar', 'CevxZvSJLk8'],
-    ['Dark Horse', '0KSOMA3QBU0'],
-    ['This Is How We Do', '7RMQksXpQSk'],
-    ['Teenage Dream', '41i4uCWST_U'],
-    ['Last Friday Night', 'KlyXNRrsk4A'],
-    ['Unconditionally', 'XjwZAa2EjKA'],
-];
-
-
 export default class Playlist extends Component {
     render() {
-        const {onSelect, videoPlaying} = this.props;
+        const {playlist, onSelect, videoPlaying} = this.props;
 
         const entries = playlist.map( ([title, videoId]) =>
             <VideoEntry
