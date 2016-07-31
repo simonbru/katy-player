@@ -14,31 +14,48 @@ export default class LoginModal extends Component {
         });
     }
 
+    handleHide() {
+        const {questions, onClose} = this.props;
+        const {userChoices} = this.state;
+        if (questions.every( (question, i) => userChoices[i] === question.answer )) {
+            this.props.onSuccess();
+        }
+        onClose();
+    }
+
     render() {
         const {questions, active, onClose, onSuccess} = this.props;
         const {userChoices} = this.state;
+        const handleHide = this.handleHide.bind(this);
+        const $this = this;
 
-        const questionsElems = questions.map(
-            (question, i) => (<Question
-                {...question}
-                checked={userChoices[i]}
-                key={i}
-                onChange={choiceIndex => this.handleChange(i, choiceIndex)}
-                />)
-        );
+        function *questionsSequence() {
+            // Each question must be answered right for the next element to appear
+            for (let i=0; i<questions.length; i++) {
+                yield (<Question
+                    {...questions[i]}
+                    checked={userChoices[i]}
+                    key={i}
+                    onChange={choiceIndex => $this.handleChange(i, choiceIndex)}
+                    />);
+                if (userChoices[i] !== questions[i].answer)
+                    return;
+            }
+            yield (<div>
+                <p>Success! Enjoy</p>
+                <Button bsStyle="primary" onClick={handleHide}>Close</Button>
+            </div>);
+        }
 
-        return <Modal show={active} onHide={onClose}>
+        return <Modal show={active} onHide={handleHide}>
             <Modal.Header closeButton>
                 <Modal.Title>Account Verification</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <h4>Please answer the following questions</h4>
                 <form>
-                    {questionsElems}
+                    {Array.from(questionsSequence())}
                 </form>
-                <Button onClick={onSuccess}>
-                    Accept
-                </Button>
             </Modal.Body>
 
         </Modal>;
