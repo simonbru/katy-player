@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {ResponsiveEmbed} from 'react-bootstrap'
 
-import config from '../config.json'
+import {getVideoInfo} from './utils'
 
 export default class Player extends Component {
     state = {
@@ -33,10 +33,4 @@ export default class Player extends Component {
             {video}
         </div>;
     }
-}
-
-
-function getVideoInfo(videoId) {
-    return fetch(`${config.bridgeServerURL}/info/${videoId}`)
-    .then(response => response.json())
 }
