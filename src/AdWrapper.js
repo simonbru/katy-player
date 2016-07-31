@@ -29,6 +29,7 @@ export default class AdWrapper extends Component {
         let {skipTime, ...videoProps} = this.props;
         const {timeLeft, advertId, adSkipped} = this.state;
         let skipButton = null;
+        const poster = `https://i.ytimg.com/vi/${this.props.videoId}/maxresdefault.jpg`;
 
         if (!adSkipped) {
             Object.assign(videoProps, {
@@ -44,7 +45,7 @@ export default class AdWrapper extends Component {
         }
 
         return <div className="AdWrapper">
-            <Player {...videoProps} />
+            <Player {...videoProps} poster={poster} />
             {skipButton}
         </div>;
     }

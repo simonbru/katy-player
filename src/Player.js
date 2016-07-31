@@ -18,18 +18,18 @@ export default class Player extends Component {
     }
 
     render() {
-        const {videoId, onCanPlay} = this.props;
+        const {videoId, poster, onCanPlay} = this.props;
         const {videoHotlink} = this.state;
 
         const video = <ResponsiveEmbed a16by9>
-            <video autoPlay controls onCanPlay={onCanPlay}>
-                <source src={videoHotlink}/>
+            <video autoPlay controls poster={poster} onCanPlay={onCanPlay}>
+                {videoHotlink && <source src={videoHotlink}/>}
             </video>
         </ResponsiveEmbed>;
 
         return <div>
             <p>Playing video: {videoId}</p>
-            {videoHotlink ? video : 'Loading...'}
+            {video}
         </div>;
     }
 }
