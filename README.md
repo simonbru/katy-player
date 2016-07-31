@@ -9,6 +9,11 @@ docker-compose up
 ```
 Then open a browser on [http://localhost:3000](http://localhost:3000)
 
+If docker doesn't expose ports on localhost, you need to change the URL accordingly in `config.json` and rebuild the docker images:
+```
+docker-compose up --build
+```
+
 ### Using the pre-built bundle
 * Install `python3` if you don't have it already
 * Download and extract [this pre-built bundle](https://github.com/simonbru/katy-player/releases/download/0.1/bundle.tar.gz)
