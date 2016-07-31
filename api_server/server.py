@@ -13,7 +13,7 @@ app = Bottle()
 def v_dash_aac128(url):
     url = urllib.parse.unquote(url)  # workaround
     format = request.forms.get('format', 'best')
-    ytdl = YoutubeDL({'format': format})
+    ytdl = YoutubeDL({'format': format, 'source_address': '0.0.0.0'})
     info = ytdl.extract_info(url, download=False)
 
     response.set_header('Access-Control-Allow-Origin', '*')
