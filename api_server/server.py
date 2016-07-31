@@ -10,7 +10,7 @@ app = Bottle()
 
 
 @app.route('/info/<url:path>')
-def v_dash_aac128(url):
+def v_info_url(url):
     url = urllib.parse.unquote(url)  # workaround
     format = request.forms.get('format', 'best')
     ytdl = YoutubeDL({'format': format, 'source_address': '0.0.0.0'})
@@ -21,8 +21,8 @@ def v_dash_aac128(url):
 
 
 @app.route('/info/<vid>')
-def v_dash_aac128_vid(vid):
-    v_dash_aac128("https://youtube.com/?v="+vid)
+def v_info_vid(vid):
+    v_info_url("https://youtube.com/?v="+vid)
 
 
 app.run(host='0.0.0.0', reloader=True, debug=True, server='cherrypy', port=3001)
