@@ -1,0 +1,12 @@
+version: '2'
+services:
+  katyplayer:
+    build: .
+    ports:
+     - "3000:3000"
+    depends_on:
+     - api_server
+  api_server:
+    build: api_server
+    ports:
+     - "3001:3001"
