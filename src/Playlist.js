@@ -32,7 +32,8 @@ function VideoEntry({videoId, title, onClick, selected}) {
     const url = `https://www.youtube.com/watch?v=${videoId}`;
     const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-    return <ListGroupItem href={url} active={selected} onClick={clickHandler}>
+    return <ListGroupItem href={url} active={selected}
+            bsStyle={selected ? 'danger' : null} onClick={clickHandler}>
         <Image src={thumbnail} responsive />
         {title}
     </ListGroupItem>;
