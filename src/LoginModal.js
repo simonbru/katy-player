@@ -15,16 +15,16 @@ export default class LoginModal extends Component {
     }
 
     handleHide() {
-        const {questions, onClose} = this.props;
+        const {questions, onClose, onSuccess} = this.props;
         const {userChoices} = this.state;
         if (questions.every( (question, i) => userChoices[i] === question.answer )) {
-            this.props.onSuccess();
+            onSuccess();
         }
         onClose();
     }
 
     render() {
-        const {questions, active, onClose, onSuccess} = this.props;
+        const {questions, active} = this.props;
         const {userChoices} = this.state;
         const handleHide = this.handleHide.bind(this);
         const $this = this;
@@ -63,7 +63,13 @@ export default class LoginModal extends Component {
 }
 
 
-function Question({text, choices, checked, answer, onChange}) {
+function Question({text, errorText, choices, checked, answer, onChange}) {
+    let validationState = null;
+    if (checked === answer)
+        validationState = 'success';
+    else if (checked !== undefined)
+        validationState = 'error';
+
     const radios = choices.map(
         (choice, i) => <Radio
             key={i}
@@ -73,8 +79,9 @@ function Question({text, choices, checked, answer, onChange}) {
             >{choice}</Radio>
     );
 
-    return <FormGroup>
+    return <FormGroup validationState={validationState}>
         <ControlLabel>{text}</ControlLabel>
         {radios}
+        {validationState === 'error' && <ControlLabel>{errorText}</ControlLabel>}
     </FormGroup>;
 }

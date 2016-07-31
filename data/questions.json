@@ -1,13 +1,16 @@
 [{
     "text": "Do you own a Youtube RED account?",
     "choices": ["Yes", "No", "Maybe?"],
-    "answer": 0
+    "answer": 0,
+    "errorText": "You must own a Youtube RED account to continue."
 }, {
     "text": "Did you answer honestly to the previous question?",
     "choices": ["Of course", "Actually..."],
-    "answer": 0
+    "answer": 0,
+    "errorText": "You must be honest to continue."
 }, {
     "text": "Isn't there any chance that you haven't been feeling dishonest lately?",
     "choices": ["Sure", "Hell no!", "I'm not sure"],
-    "answer": 2
+    "answer": 2,
+    "errorText": "I KNEW you were dishonest! You can't possibly understand this question."
 }]
