@@ -18,3 +18,7 @@
     overflow-y: hidden;
   }
 }
+
+.App-headerbar .btn-group {
+  margin-right: 30px;
+}

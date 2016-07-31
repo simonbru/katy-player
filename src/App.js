@@ -21,19 +21,31 @@ class App extends Component {
   state = {
     videoPlaying: null,
     youtubeRED: false,
-    showLoginModal: false
+    repeat: false,
+    shuffle: false,
+    showLoginModal: false,
   }
 
   render() {
-    const {showLoginModal, videoPlaying, youtubeRED} = this.state;
+    const {showLoginModal, repeat, shuffle, videoPlaying, youtubeRED} = this.state;
     const VideoPlayer = youtubeRED ? Player : AdWrapper;
+
+    const toggleState = (key) => {
+      return () => this.setState({
+        [key]: !this.state[key]
+      });
+    };
 
     return (
       <div className="App">
         <Grid fluid>
           <Row className="App-headerbar">
             <HeaderBar
+              repeat={repeat}
+              shuffle={shuffle}
               youtubeRED={youtubeRED}
+              onToggleRepeat={toggleState('repeat')}
+              onToggleShuffle={toggleState('shuffle')}
               onREDTrigger={this.onREDTrigger.bind(this)}
               />
           </Row>
