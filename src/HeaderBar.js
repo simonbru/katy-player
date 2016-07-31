@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Checkbox, Col} from 'react-bootstrap'
+import {Button, Col, Glyphicon} from 'react-bootstrap'
 
 export default class HeaderBar extends Component {
     render() {
@@ -10,9 +10,10 @@ export default class HeaderBar extends Component {
                 <h1>Katy Player</h1>
             </Col>
             <Col sm={3}>
-                <Checkbox checked={youtubeRED} onClick={onREDTrigger}>
-                    Youtube RED
-                </Checkbox>
+                <Button bsStyle="danger" onClick={onREDTrigger}>
+                    <Glyphicon glyph={youtubeRED ? 'check' : 'unchecked'} />
+                    {' Youtube Red'}
+                </Button>
             </Col>
         </div>;
     }
