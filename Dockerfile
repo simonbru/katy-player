@@ -1,15 +1,14 @@
-FROM python:3
+FROM node:6
 
-RUN apt-get update && apt-get install -y npm
-RUN ln -s /usr/bin/nodejs /usr/local/bin/node
-COPY . /opt/app
+RUN useradd -m runner -u 1050 -N
+RUN install -d /opt/app -o runner
 WORKDIR /opt/app
-RUN useradd -m runner -u 1050
-RUN chown -R runner .
 USER runner
 
-RUN pip3 install --user -r api_server/requirements.txt
+COPY package.json .
 RUN npm install
+COPY . .
 RUN npm run build
 
-CMD bash
+EXPOSE 3000
+CMD cd build && python2 -m SimpleHTTPServer 3000
