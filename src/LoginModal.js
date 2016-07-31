@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {Button, ControlLabel, FormGroup, Modal, Radio} from 'react-bootstrap'
+import {Button, ControlLabel, FormGroup, Modal,
+        ProgressBar, Radio} from 'react-bootstrap'
 
 
 export default class LoginModal extends Component {
@@ -41,10 +42,9 @@ export default class LoginModal extends Component {
                 if (userChoices[i] !== questions[i].answer)
                     return;
             }
-            yield (<div>
-                <p>Success! Enjoy</p>
-                <Button bsStyle="primary" onClick={handleHide}>Close</Button>
-            </div>);
+            yield (<FakeProgress>
+                <Button bsStyle="danger" onClick={handleHide}>Close</Button>
+            </FakeProgress>);
         }
 
         return <Modal show={active} onHide={handleHide}>
@@ -84,4 +84,42 @@ function Question({text, errorText, choices, checked, answer, onChange}) {
         {radios}
         {validationState === 'error' && <ControlLabel>{errorText}</ControlLabel>}
     </FormGroup>;
+}
+
+
+class FakeProgress extends Component {
+    state = {
+        progress: 0
+    }
+
+    componentDidMount() {
+        this._interval = setInterval(() => {
+            let {progress} = this.state;
+            progress += (progress > 35) ? 15 : 5;
+            this.setState({ progress: progress });
+        }, 100);
+    }
+
+    componentWillUnmount() {
+        if (this._interval)
+            clearInterval(this._interval);
+    }
+
+    render() {
+        const {progress} = this.state;
+        const {children} = this.props;
+
+        if (progress < 100) {
+            return <div>
+                <ProgressBar active bsStyle="danger" now={progress} />
+                <h5 style={{textAlign: 'center'}} >Validating answers...</h5>
+            </div>;
+        } else {
+            return <div>
+                <ProgressBar striped bsStyle="success" now={100} />
+                <h4 style={{textAlign: 'center'}} >Success!</h4>
+                {React.Children.toArray(children)}
+            </div>
+        }
+    }
 }
