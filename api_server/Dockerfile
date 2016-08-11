@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3-slim
 
 RUN useradd -m runner -u 1050 -N
 RUN install -d /opt/app -o runner
