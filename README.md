@@ -1,5 +1,17 @@
 # Katy Player
 
+Media player for Michael's favorite Katy Perry videos.
+
+Winner of [CoderRadio's Katy Perry coding challenge](https://www.reddit.com/r/CoderRadio/comments/4ukt4k/episode_215_coding_challenge/)
+
+![Screenshot](screenshot.png)
+
+## Features
+
+* Play all videos in a row, randomly or in *Repeat*
+* Fake YouTube ads for Jupiter Broadcasting
+* YouTube Red support based on *trust*
+
 ## How to use
 
 ### Using docker and docker-compose
